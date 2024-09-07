@@ -1,0 +1,1055 @@
+main---------------------------------------------
+
+#include<stdio.h>
+#include "principal.h"
+#include "clerk.h"
+#include "teacher.h"
+#include "student.h"
+
+int choice;
+int pass2;
+int main()
+{
+//	principal=fopen("principal.txt","w");
+//	clerk=fopen("clerk.txt","a");
+//	teacher=fopen("teacher.txt","w");
+//	student=fopen("student.txt","w");
+	
+	do
+	{
+		printf("\n1:Principal\n2:Clerk\n3:Teacher\n4:Student\n5:Exit\n");
+		printf("\nEnter your choice\n");
+		scanf("%d",&choice);
+		switch(choice)
+		{
+//-----------------------------------------------------Case 1 Principal------------------------------------------------------------------
+			case 1:
+				int choice6;
+				char uid[10],pass[10];
+				printf("\nEnter userid\n");
+				_flushall();
+				gets(uid);
+				printf("\nEnter password\n");
+				_flushall();
+				gets(pass);                  
+				
+				if(auth_principal(uid,pass)==2)
+				{
+					printf("\n*** Logged in as Principal ***\n");
+					do
+					{
+						printf("\n1:View all student record\n2:View all Teacher record\n3:View Time Table\n4:Set Notice\n");
+						printf("\nEnter a choice\n");
+						scanf("%d",&choice6);
+						
+						switch(choice6)
+						{
+							case 1:
+								display_student();
+								break;
+								
+							case 2:
+								display_teacher();
+								break;
+									
+							case 3:
+								break;
+								
+							case 4:
+								int choice8;
+								do
+								{
+									printf("\n1:Notice for all school\n2:Notice for teacher\n3:Display notice for all\n4:Display teachers notice\n");
+									printf("\nEnter a choice\n");
+									scanf("%d",&choice8);
+									
+									switch(choice8)
+									{
+										case 1:
+											set_notice();
+											break;
+											
+										case 2:
+											teacher_notice();
+											break;
+											
+										case 3:
+											display_notice_all();
+											break;
+											
+										case 4:
+											display_notice_teacher();
+											break;
+												
+										default :
+											printf("\nWrong choice\n");
+									}
+									
+								}while(choice8>0 && choice8<5);
+								break;
+								
+							default:
+								printf("\nEnter a wrong choice\n");
+							 
+						}
+						
+					}while(choice6>0 && choice6<5);
+				}
+				else
+				printf("\n*** Login Failed ***\n");
+				break;
+
+//----------------------------------------------------------Case 2 Clerk---------------------------------------------------------------				
+			case 2:
+				int choice2,choice4;
+				printf("\nEnter userid\n");
+				_flushall();
+				gets(uid);
+				printf("\nEnter password\n");
+				_flushall();
+				gets(pass);                  
+				
+				if(auth_clerk(uid,pass)==2)
+				{
+					printf("\n*** Logged in as clerk ***\n");
+					do
+					{
+						printf("\n1:Student Section\n2:Teacher section\n3:Exit\n\nEnter a choice\n");
+						scanf("%d",&choice);
+						switch(choice)
+						{
+							case 1:
+								do
+								{
+								printf("\n1:Add new student\n2:Update student details\n3:Delete Student\n4:Display student record\n");
+								printf("5:Exit\n\nEnter a choice\n");
+								scanf("%d",&choice2);
+								
+								switch(choice2)
+								{
+									case 1:
+										add_student();
+										break;
+										
+									case 2:
+										update_student();
+										break;
+										
+									case 3:
+										delete_student();
+										break;
+										
+									case 4:
+										display_student();
+										break;
+								}
+								}while(choice2>0 && choice2 <5);
+							break;
+						//------------------------------------------------------------------------------------------------------------------	
+							case 2:
+								do
+								{
+									printf("\n1:Add new Teacher\n2:Update Teacher Details\n3:Delete Teacher\n4:Dispaly Teachers details\n5:Exit\n");
+									printf("\nEnter a choice ");
+									scanf("%d",&choice4);
+									
+									switch(choice4)
+									{
+										case 1:
+											add_teacher();
+											break;
+											
+										case 2:
+											update_teacher();
+											break;
+											
+										case 3:
+											delete_teacher();
+											break;
+											
+										case 4:
+											display_teacher();
+											break;
+									}
+								}while(choice4>0 && choice4<5);
+								break;
+						}
+					}while(choice>0 && choice<3);
+				}
+				else
+				printf("\n*** Login Failed ***\n");
+				break;
+//------------------------------------------------------Case 3 Teacher---------------------------------------------------------------			
+			case 3:
+				int pass1,choice10;
+				printf("\nEnter userid\n");
+				scanf("%s",&uid);
+				printf("\nEnter password\n");
+				scanf("%d",&pass1);
+		
+				if(teacher_login(uid,pass1)==1)
+				{
+					printf("\n\n*** Logged in as Teacher ***\n");
+					
+					do
+					{
+						printf("\n1:Time table\n2:Display Student\n3:Update Student Marks\n4:View Notice\n5:Set Notice for Student\n6:Exit\n");
+						printf("\nEnter a choice ");
+						scanf("%d",&choice10);
+						
+						switch(choice10)
+						{
+							case 1:
+								time_table();
+								break;
+								
+							case 2:
+								display_student();
+								break;
+								
+							case 3:
+								
+								break;
+								
+							case 4:
+								do
+								{
+									printf("\n1:Notice for All\n2:Notice for Teacher\n3:Exit");
+									printf("\nEnter a choice ");
+									scanf("%d",&choice10);
+									
+									switch(choice10)
+									{
+										case 1:
+											display_notice_all();
+											break;
+											
+										case 2:
+											display_notice_teacher();
+											break;
+											
+										default:
+											printf("\nExit\n");		
+									}
+								}while(choice10>0 && choice10<3);
+								break;
+								
+							case 5:
+								int choice12;
+								do
+								{
+									printf("\n1:Set notice for student\n2:Display student notice\n3:Exit\n");
+									printf("\nEnter a choice ");
+									scanf("%d",&choice12);
+									
+									switch(choice12)
+									{
+										case 1:
+											set_student_notice();
+											break;
+											
+										case 2:
+											display_student_notice();
+											break;
+											
+										default:
+											printf("\nExit\n");
+									}
+								}while(choice12>0 && choice12<3);
+								break;
+								
+							default:
+								printf("\nExit\n");
+						}
+						
+						
+					}while(choice10>0 && choice10<6);
+					time_table();
+				}
+				else
+				printf("\n*** Login Failed ***\n");
+				break;
+//------------------------------------------------------Case 4 Student---------------------------------------------------------------				
+			case 4:
+				
+				char uid1[10];
+				printf("\nEnter userid\n");
+				scanf("%s",&uid1);
+				printf("\nEnter password\n");
+				scanf("%d",&pass2);
+		
+				if(student_login(uid1,pass2)==1)
+				{
+					printf("\n\n*** Logged in as Student ***\n");
+				}
+				else
+				printf("\n*** Login Failed ***\n");
+				break;
+
+//--------------------------------------------------------------------------------------------------------------------------------------
+				
+			default:
+				printf("\nWrong choice\n");
+				break;
+		}
+	}while(choice>0 && choice<5);
+	fclose(principal);
+	fclose(clerk);
+	fclose(teacher);
+	fclose(student);
+	
+	
+}
+
+Principal###################################################################################################################
+
+
+#include<stdio.h>
+#include<string.h>
+FILE *principal;
+FILE *notice_all;
+FILE *notice_teacher;
+
+//-----------------------------------------------------------Authentication Principal------------------------------------------------
+int auth_principal(char x[],char y[])
+{
+	char name[]="admin";
+	if(strcmp(name,x)==0 )
+	{
+		if(strcmp(name,y)==0)
+			return 2;
+		else
+			return 0;
+	}
+	else
+		return 0;
+}
+//-----------------------------------------------------------Notice all function --------------------------------------------------------
+char notice[500];
+char notice1[500];
+void set_notice()
+{
+	printf("Write a notice for all\n");
+	fflush(stdin);
+	gets(notice);
+	
+	notice_all = fopen("Notice_all.txt","w");
+	fprintf(notice_all, "%s\n", notice);
+    printf("\n*** Notice sent!! ***\n");
+    fclose(notice_all);
+}
+//-----------------------------------------------------------Display notice all function----------------------------------------------------
+void display_notice_all()
+{
+	notice_all = fopen("Notice_all.txt","r");
+	printf("\n*** NOTICE ***\n");
+	
+	while (fscanf(notice_all, "%s", notice) != EOF)
+	{
+        printf("%s ", notice);
+    }
+    printf("\n");
+    fclose(notice_all);
+}
+//-----------------------------------------------------------Notice for teacher function ------------------------------------------------------
+void teacher_notice()
+{
+	notice_teacher = fopen("techaer_notice.txt","w");
+	printf("Write a notice teacher\n");
+	fflush(stdin);
+	fprintf(notice_teacher,"%s",gets(notice1));
+	printf("\n*** Notice send!! ***\n");
+	fclose(notice_teacher);
+}
+//-----------------------------------------------------------Display notice all function--------------------------------------------------------
+void display_notice_teacher()
+{
+	notice_teacher = fopen("techaer_notice.txt","r");
+	printf("\n*** NOTICE ***\n");
+	while (fscanf(notice_teacher, "%s", notice1) != EOF)
+	{
+        printf("%s ", notice1);
+    }
+    printf("\n");
+    fclose(notice_teacher);
+}
+
+Clerk##############################################################################################################################3
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+FILE *clerk;
+struct student
+{
+	int id;
+	char name[20];
+	char address[20];
+};
+struct student s,temp;
+int choice1,choice3;// for clerk section odd choice is used
+
+//-------------------------------------------Auth clerk-------------------------------------------
+int auth_clerk(char x[],char y[])
+{
+	if(strcmp("admin",x)==0 )
+	{
+		if(strcmp("admin",y)==0)
+			return 2; // strcmp give op as 1 -1 0;
+		else
+			return 0;
+	}
+}
+
+//--------------------------------------add student function--------------------------------------
+
+void add_student()
+{
+	int roll,flag =0;
+	clerk=fopen("clerk.txt","r");
+	printf("\nEnter student information\n");
+	printf("\nEnter roll no of student\n");
+	scanf("%d",&roll);
+	while(fscanf(clerk,"%d%s%s",&s.id,&s.name,&s.address) != -1)
+	{
+		if(s.id==roll)
+		flag =1;
+    }
+    if(flag==0)
+    {
+		clerk=fopen("clerk.txt","a");
+		s.id=roll;
+		fprintf(clerk,"%d\t",s.id);
+		printf("Enter name of student\n");
+		_flushall();
+		gets(s.name);
+		fprintf(clerk,"%s\t",s.name);
+		printf("Enter address of student\n");
+		_flushall();
+		gets(s.address);
+		fprintf(clerk,"%s\n",s.address);
+		
+		printf("\n\n%d\t%s\t%s\n",s.id,s.name,s.address);
+		printf("\n*** Student record added successfully ***\n");
+		fclose(clerk);
+	}
+	else
+	{
+		printf("\n!!! Id %d is alredy exist !!!\n",roll);
+	}
+	fclose(clerk);
+}
+
+//----------------------------------------------array size fot student--------------------------------------------
+
+int counter_array()
+{
+	int counter =0;
+	clerk=fopen("clerk.txt","r");
+	
+	while(fscanf(clerk,"%d%s%s",&s.id,&s.name,&s.address) != -1)
+	{
+		counter++;
+	//	printf("%d\t%s\t%s\n",s.id,s.name,s.address);
+	}
+	
+	fclose(clerk);
+	return counter;
+}
+
+//-------------------------------------update student fuction--------------------------------------------
+
+void update_student()
+{
+	int array_size = counter_array();
+	struct student ptr[array_size];
+	int roll,count=0;
+	char name[20];
+	clerk=fopen("clerk.txt","r");
+		
+	printf("\nEnter roll no and name of student to update\n");
+	scanf("%d",&roll);
+	_flushall();
+	gets(name);
+	
+
+//	ptr = (struct student *) malloc(sizeof(struct student)*counter);
+	int i=0;
+	
+	while(fscanf(clerk,"%d%s%s",&s.id,&s.name,&s.address) != -1)
+	{
+		if(strcmp(name,s.name)==0 && s.id==roll)
+		{
+			ptr[i] = s;
+			printf("\n%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+			
+			count++; // if count is zero it will print student not found
+			do
+			{
+				printf("\n1:Update Name\n2:Update Roll No\n3:Update Address\n4:Exit\n");
+				printf("\nEnter a choice ");
+				scanf("%d",&choice1);
+				switch(choice1)
+				{
+					case 1:
+						char new_name[10];
+						printf("Enter new name\n");
+						fflush(stdin);
+						gets(new_name);
+						strcpy(ptr[i].name,new_name);
+						printf("\n%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+						printf("\n*** Name Updated Successfully ***\n");
+						
+						break;
+						
+					case 2:
+						int new_id,count1;
+						count1=0;
+						printf("Enter new Id\n");
+						scanf("%d",&new_id);
+						for(int j=0; j<array_size; j++)
+						{
+							if(ptr[i].id != new_id)
+							{
+								count1++;
+								ptr[i].id = new_id;
+								printf("\n%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+								printf("\n*** Id Updated Successfully ***\n");							
+							}
+						}
+						if(count1==0)
+						{
+							printf("\n%d Id is alredy exist\n",ptr[i].id);
+						}						
+						break;
+					
+					case 3:
+						char new_add[10];
+						printf("Enter new Address\n");
+						fflush(stdin);
+						gets(new_add);
+						strcpy(ptr[i].address,new_add);
+						printf("\n%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+						printf("\n*** Address Updated Successfully ***\n");
+						break;
+					
+					default :
+						printf("\nExit\n");		
+				}
+				
+			}while(choice1>0 && choice1<4);	
+		}
+		else
+		{
+			ptr[i] = s;
+		}
+		i++;
+	
+	}
+	fclose(clerk);
+	
+	clerk=fopen("clerk.txt","w");
+	for(int i=0;i<array_size;i++)
+	{
+		fprintf(clerk,"%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+	}
+	
+	if(count==0)
+	{
+		printf("\n!!! Student not found !!!\n");
+	}
+	fclose(clerk);	
+}
+
+//-------------------------------------------------Delete Student Function--------------------------------------------
+
+void delete_student()
+{
+	int array_size = counter_array();
+	int roll,i=0,counts=0;
+	char name[20];
+	struct student ptr[array_size];
+	printf("\nEnter roll no and name of student to delete\n");
+	scanf("%d",&roll);
+	_flushall();
+	gets(name);
+	
+	clerk=fopen("clerk.txt","r");
+	while(fscanf(clerk,"%d%s%s",&s.id,&s.name,&s.address) != -1)
+	{
+
+		if(strcmp(name,s.name)==0 && s.id==roll)
+		{
+			printf("\n%d\t%s\t%s\n",s.id,s.name,s.address);
+			printf("\n*** Student record deleted successfully ***\n");
+			counts++;
+		}
+		else
+		{
+			ptr[i] = s;
+			i++;
+		}
+	}
+	fclose(clerk);
+
+	clerk=fopen("clerk.txt","w");
+	for(int b=0; b<i; b++)
+	{
+		fprintf(clerk,"%d\t%s\t%s\n",ptr[b].id,ptr[b].name,ptr[b].address);
+	}
+	
+	if(counts==0)
+	{
+		printf("\n!!! Student not found !!!\n");
+	}
+	fclose(clerk);		
+}
+
+//-------------------------------------------------Display Student Function--------------------------------------------
+
+void display_student()
+{
+	int array_size = counter_array();
+	int i=0,j,k;
+	struct student ptr[array_size];
+	clerk=fopen("clerk.txt","r");
+	
+	while(fscanf(clerk,"%d%s%s",&s.id,&s.name,&s.address) != -1)
+	{
+		ptr[i++] = s;
+	
+	}
+
+	fclose(clerk);
+	
+	for(k=0; k<array_size; k++)
+	{
+		for(j=k+1; j<array_size; j++)
+		{
+			if(ptr[k].id > ptr[j].id)
+			{
+				temp = ptr[k];
+				ptr[k] = ptr[j];
+				ptr[j] = temp;
+			}
+		}
+	}
+
+//	for(i=0; i<array_size; i++)
+//	{
+//		printf("%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+//	}
+	
+	clerk=fopen("clerk.txt","w+");
+	for(i=0;i<array_size;i++)
+	{
+		fprintf(clerk,"%d\t%s\t%s\n",ptr[i].id,ptr[i].name,ptr[i].address);
+	}
+	rewind(clerk);
+	while(fscanf(clerk,"%d%s%s",&s.id,&s.name,&s.address) != -1)
+	{
+		printf("\t%d\t%s\t%s\n",s.id,s.name,s.address);
+	
+	}
+	fclose(clerk);
+	
+}
+
+//**************************************************                 ***********************************************************
+//************************************************** Teacher section ***********************************************************
+
+
+FILE *clerk1;
+struct teacher
+{
+	int id;
+	char name[20];
+	char address[20];
+	int salary;
+};
+struct teacher t,temp1;
+
+//--------------------------------------add teacher function--------------------------------------
+
+void add_teacher()
+{
+	int id,flag =0;
+	clerk1=fopen("clerk1.txt","r");
+	printf("\nEnter teacher information\n");
+	printf("\nEnter id of teacher\n");
+	scanf("%d",&id);
+	while(fscanf(clerk1,"%d%s%s%d",&t.id,&t.name,&t.address,&t.salary) != -1)
+	{
+		if(t.id==id)
+		flag =1;
+	}	
+	if(flag==0)	
+	{
+		clerk1=fopen("clerk1.txt","a");
+		t.id=id;
+		fprintf(clerk1,"%d\t",t.id);
+		printf("Enter name of teacher\n");
+		_flushall();
+		gets(t.name);
+		fprintf(clerk1,"%s\t",t.name);
+		printf("Enter address of teacher\n");
+		_flushall();
+		gets(t.address);
+		fprintf(clerk1,"%s\t",t.address);
+		printf("Enter salary of teacher \n");
+		scanf("%d",&t.salary);
+		fprintf(clerk1,"%d\n",t.salary);
+		
+		printf("\n\n%d\t%s\t%s\t%d\n",t.id,t.name,t.address,t.salary);
+		printf("\n*** Teacher record added successfully ***\n");
+		fclose(clerk1);
+	}
+	else
+	{
+		printf("\n!!! Id %d is alredy exist !!!\n",id);
+	}
+	fclose(clerk1);
+}
+
+//----------------------------------------------array size for teachers--------------------------------------------
+
+
+int counter_data()
+{
+	int counter1 = 0;
+	clerk1=fopen("clerk1.txt","r");
+	
+	while(fscanf(clerk1,"%d%s%s%d",&t.id,&t.name,&t.address,&t.salary) != -1)
+	{
+		counter1++;
+		
+	}
+	fclose(clerk1);
+	return counter1;
+}
+
+//-------------------------------------update teacher fuction--------------------------------------------
+
+void update_teacher()
+{
+	int array_size1 = counter_data();
+	struct teacher ptr[array_size1];
+	int id,count=0;
+	char name[20];
+	clerk1=fopen("clerk1.txt","r");
+	
+	printf("\nEnter ID and name of teacher to update\n");
+	scanf("%d",&id);
+	fflush(stdin);
+	gets(name);
+	
+	int i=0;
+	
+	while(fscanf(clerk1,"%d%s%s%d",&t.id,&t.name,&t.address,&t.salary) != -1)
+	{
+		if(strcmp(name,t.name)==0 && t.id==id)
+		{
+			ptr[i] = t;
+			printf("\n%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+			
+			count++; // if count is zero it will print student not found
+			do
+			{
+				printf("\n1:Update Name\n2:Update ID\n3:Update Address\n4:Update Salary\n5:Exit\n");
+				printf("\nEnter a choice ");
+				scanf("%d",&choice3);
+				switch(choice3)
+				{
+					case 1:
+						char new_name[10];
+						printf("Enter new name\n");
+						fflush(stdin);
+						gets(new_name);
+						strcpy(ptr[i].name,new_name);
+						printf("\n%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+						printf("\n*** Name Updated Successfully ***\n");
+						
+						break;
+						
+					case 2:
+						int new_id,count1;
+						count1=0;
+						printf("Enter new Id\n");
+						scanf("%d",&new_id);
+						for(int j=0; j<array_size1; j++)
+						{
+							if(ptr[i].id != new_id)
+							{
+								count1++;
+								ptr[i].id = new_id;
+								printf("\n%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+								printf("\n*** Id Updated Successfully ***\n");
+								
+							}
+						}
+						if(count1==0)
+						{
+							printf("\n%d Id is alredy exist\n",ptr[i].id);
+						}
+						
+						break;
+					
+					case 3:
+						char new_add[10];
+						printf("Enter new Address\n");
+						fflush(stdin);
+						gets(new_add);
+						strcpy(ptr[i].address,new_add);
+						printf("\n%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+						printf("\n*** Address Updated Successfully ***\n");
+						break;
+						
+					case 4:
+						int new_salary;
+						printf("\nEnter a new  salary\n");
+						scanf("%d",&new_salary);
+						ptr[i].salary = new_salary;
+						printf("\n%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+						printf("\n*** Salary Updated Successfully ***\n");
+						break;
+					
+					default :
+						printf("\nExit\n");		
+				}
+				
+			}while(choice3>0 && choice3<5);	
+		}
+		else
+		{
+			ptr[i] = t;
+		}
+		i++;
+	
+	}
+	fclose(clerk1);
+	
+	clerk1=fopen("clerk1.txt","w");
+	for(int i=0;i<array_size1;i++)
+	{
+		fprintf(clerk1,"%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+	}
+	
+	if(count==0)
+	{
+		printf("\n!!! Teacher not found !!!\n");
+	}
+	fclose(clerk1);	
+}
+
+//-------------------------------------------------Delete Teacher Function -------------------------------------------
+
+void delete_teacher()
+{
+	int array_size1 = counter_data();
+	int id,i=0,counts=0;
+	char name[20];
+	struct teacher ptr[array_size1];
+	printf("\nEnter roll no and name of teacher to delete\n");
+	scanf("%d",&id);
+	_flushall();
+	gets(name);
+	
+	clerk1=fopen("clerk1.txt","r");
+	while(fscanf(clerk1,"%d%s%s%d",&t.id,&t.name,&t.address,&t.salary) != -1)
+	{
+
+		if(strcmp(name,t.name)==0 && t.id==id)
+		{
+			printf("\n%d\t%s\t%s\t%d\n",t.id,t.name,t.address,t.salary);
+			printf("\n*** Teacher record deleted successfully ***\n");
+			counts++;
+		}
+		else
+		{
+			ptr[i] = t;
+			i++;
+		}
+	}
+	fclose(clerk1);
+
+	clerk1=fopen("clerk1.txt","w");
+	for(int b=0; b<i; b++)
+	{
+		fprintf(clerk1,"%d\t%s\t%s\t%d\n",ptr[b].id,ptr[b].name,ptr[b].address,ptr[b].salary);
+	}
+	
+	if(counts==0)
+	{
+		printf("\n!!! Teacher not found !!!\n");
+	}
+	fclose(clerk1);		
+}
+
+//-------------------------------------------------Display Teacher Function--------------------------------------------
+
+void display_teacher()
+{
+	int array_size1 = counter_data();
+	int i=0,j,k;
+	struct teacher ptr[array_size1];
+	clerk1=fopen("clerk1.txt","r");
+	
+	while(fscanf(clerk1,"%d%s%s%d",&t.id,&t.name,&t.address,&t.salary) != -1)
+	{
+		ptr[i++] = t;
+	}
+
+	fclose(clerk1);
+	
+	for(k=0; k<array_size1; k++)
+	{
+		for(j=k+1; j<array_size1; j++)
+		{
+			if(ptr[k].id > ptr[j].id)
+			{
+				temp1 = ptr[k];
+				ptr[k] = ptr[j];
+				ptr[j] = temp1;
+			}
+		}
+	}
+	
+	clerk1=fopen("clerk1.txt","w+");
+	for(int i=0;i<array_size1;i++)
+	{
+		fprintf(clerk1,"%d\t%s\t%s\t%d\n",ptr[i].id,ptr[i].name,ptr[i].address,ptr[i].salary);
+	}
+	rewind(clerk1);
+	while(fscanf(clerk1,"%d%s%s%d",&t.id,&t.name,&t.address,&t.salary) != -1)
+	{
+		printf("\t%d\t%s\t%s\t%d\n",t.id,t.name,t.address,t.salary);
+	
+	}
+	fclose(clerk1);	
+}
+
+
+
+
+teacher ###################################################################################################################
+
+#include<stdio.h>
+#include<string.h>
+FILE *teacher;
+FILE *notice_student;
+struct teacher1
+{
+	int id;
+	char name[20];
+	char add[20];
+	int salary;
+};
+struct teacher1 t1;
+//-------------------------------------------Teacher Login---------------------------------------------------------------------
+
+int teacher_login(char a[], int b)
+{
+	int flag=0;
+	teacher=fopen("clerk1.txt","r");
+	
+	while(fscanf(teacher,"%d%s%s%d",&t1.id,&t1.name,&t1.add,&t1.salary) != -1)
+	{
+		if(strcmp(a,t1.name)==0 && b==t1.id)
+		{
+			printf("\nId     : %d\nName   : %s\nAdress : ",t1.id,t1.name,t1.add);
+			return 1;
+		}
+	}
+	fclose(teacher);
+}
+
+//-------------------------------------------Time Table---------------------------------------------------------------------
+
+void time_table()
+{
+	char time_table[500];
+	printf("\n---------------------------------------------Time-table------------------------------------------\n");
+	printf("\nDay\tMonday   \tTuesday  \tWednesday\tThursday \tFriday   \tSaturday \nTime\n\n");
+	printf("8-9  AM\tMarathi  \tMaths    \tHindi    \tScience  \tEnglish  \tP.T.     \n");
+	printf("9-10 AM\tMaths    \tScience  \tGeography\tHistory  \tMaths    \tHindi    \n");
+	printf("10-11AM\tScience  \tHindi    \tMaths    \tEnglish  \tHistoty  \tMaths    \n");
+	printf("\n11-12AM\t\t\t\t\t**** Break ****\n\n");
+	printf("12-1 AM\tGeography\tP.T.     \tScience  \tMarathi  \tScience  \tGeography\n");
+	printf("1-2  AM\tP.T.     \tHistory  \tEnglish  \tMaths    \tMarathi  \tP.T.     \n");
+	printf("\n-------------------------------------------------------------------------------------------------\n");
+}
+
+//-------------------------------------------Notice for Student---------------------------------------------------------------------
+
+char notice2[500];
+void set_student_notice()
+{
+	printf("Write a notice for all\n");
+	fflush(stdin);
+	gets(notice2);
+	
+	notice_student = fopen("Student_notice.txt","w");
+	fprintf(notice_student, "%s\n", notice2);
+    printf("\n*** Notice sent!! ***\n");
+    fclose(notice_student);
+}
+
+//-----------------------------------------------------------Display notice all function----------------------------------------------------
+void display_student_notice()
+{
+	notice_student = fopen("Student_notice.txt","r");
+	printf("\n*** NOTICE ***\n");
+	
+	while (fscanf(notice_student, "%s", notice2) != EOF)
+	{
+        printf("%s ", notice2);
+    }
+    printf("\n");
+    fclose(notice_student);
+}
+
+student############################################################################################################
+
+
+#include<stdio.h>
+#include<string.h>
+FILE *student;
+
+struct student1
+{
+	int id;
+	char name[20];
+	char add[20];
+};
+struct student1 s1;
+//-------------------------------------------Student Login---------------------------------------------------------------------
+
+int student_login(char a[], int b)
+{
+	student=fopen("clerk.txt","r");
+	
+	while(fscanf(student,"%d%s%s",&s1.id,&s1.name,&s1.add) != EOF)
+	{	
+		//	printf("%d %s",s1.id,s1.name);
+		if( b==s1.id && strcmp(a,s1.name)==0 )
+		{
+			printf("\nId     : %d\nName   : %s\nAdress : %s",s1.id,s1.name,s1.add);
+			return 1;
+		}
+	}
+	fclose(student);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

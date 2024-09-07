@@ -1,0 +1,10 @@
+1	Anuj	Satara
+2	Ankit	Satara
+3	Shivaji	Latur
+4	Rohit	Indapur
+5	Sanket	Kolhapur
+7	Dolly	Nagpur
+8	Rajesh	PUNE
+12	Abhishek	abc
+21	Krish	Gokul
+30	Rutuja	Jalgoan
